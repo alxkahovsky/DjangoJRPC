@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Json RPC 2.0{% endblock %}
+{% block content %}
+<div id="jrpcContainer">
+    <h1>Json RPC 2.0</h1>
+    <p>Узнать больше про JRPC 2.0 можно <a href="https://www.jsonrpc.org/specification">ТУТ!</a></p>
+    <form id="callForm" method="POST">
+        {% csrf_token %}
+        <label for="method">Имя метода:</label><br>
+        <input type="text" id="method" name="method" placeholder="method.name" required><br><br>
+        <label for="params">Параметры:</label><br>
+        <textarea id="params" name="params"></textarea><br><br>
+        <button type="submit">Отправить!</button>
+    </form>
+    <div id="jrpcResponse"></div>
+</div>
+{% endblock %}
