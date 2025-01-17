@@ -13,9 +13,9 @@ class JrpcClientForm(forms.Form):
         params = self.cleaned_data.get('params')
         if params:
             try:
-                json.loads(params)
+                json_params = json.loads(params)
+                if not isinstance(json_params, (dict, list, NoneType)):
+                    raise ValidationError(f'Params "{params}" are invalids')
             except json.JSONDecodeError:
                 raise ValidationError("Params must be a JSON format.")
-            if not isinstance(params, (dict, list, NoneType)):
-                raise ValidationError(f'Params "{params}" are invalid')
         return params
