@@ -103,7 +103,8 @@ class HttpTransport(Transport):
             host: str,
             port: int,
             certdata: Optional[str] = None,
-            keydata: Optional[str] = None) -> Union[http.client.HTTPConnection, http.client.HTTPSConnection]:
+            keydata: Optional[str] = None) -> Union[http.client.HTTPConnection,
+    http.client.HTTPSConnection]:
         """
         Создает соединение с сервером.
 
@@ -119,7 +120,8 @@ class HttpTransport(Transport):
             return http.client.HTTPSConnection(host, port, context=context)
         return http.client.HTTPConnection(host, port)
 
-    def _create_ssl_context(self, certdata: Optional[str], keydata: Optional[str]) -> ssl.SSLContext:
+    def _create_ssl_context(self, certdata: Optional[str],
+                            keydata: Optional[str]) -> ssl.SSLContext:
         """
         Создает SSL-контекст и загружает сертификат и ключ, если они предоставлены.
 
@@ -134,7 +136,9 @@ class HttpTransport(Transport):
         return context
 
     @staticmethod
-    def _create_temp_cert_key_files(certdata: str, keydata: str) -> tuple[tempfile.NamedTemporaryFile, tempfile.NamedTemporaryFile]:
+    def _create_temp_cert_key_files(certdata: str,
+                                    keydata: str) -> tuple[tempfile.NamedTemporaryFile,
+    tempfile.NamedTemporaryFile]:
         """
         Создает временные файлы для сертификата и ключа.
 
@@ -151,7 +155,8 @@ class HttpTransport(Transport):
         return certfile, keyfile
 
     @staticmethod
-    def _create_payload(method: str, params: Optional[Union[Dict[str, Any], List[Any]]], call_id: int, version: str) -> str:
+    def _create_payload(method: str, params: Optional[Union[Dict[str, Any],
+    List[Any]]], call_id: int, version: str) -> str:
         """
         Создает JSON-строку для тела запроса.
 
@@ -188,8 +193,10 @@ class WebSocketTransport(Transport):
     Реализация транспорта для выполнения JSON-RPC вызовов через WebSocket (заглушка).
     """
 
-    def call(self, scheme: str, host: str, port: int, url: str, method: str, params: Optional[Union[Dict[str, Any], List[Any]]],
-             call_id: int, version: str, certfile: Optional[str] = None, keyfile: Optional[str] = None) -> Dict[str, Any]:
+    def call(self, scheme: str, host: str, port: int,
+             url: str, method: str, params: Optional[Union[Dict[str, Any], List[Any]]],
+             call_id: int, version: str,
+             certfile: Optional[str] = None, keyfile: Optional[str] = None) -> Dict[str, Any]:
         """
         Выполняет JSON-RPC вызов через WebSocket (заглушка).
 
@@ -284,7 +291,8 @@ class JrpcServer:
     Класс для выполнения JSON-RPC вызовов на сервере.
     """
 
-    def __init__(self, url: str, version: str, transport: Transport, certfile: Optional[str] = None,
+    def __init__(self, url: str, version: str,
+                 transport: Transport, certfile: Optional[str] = None,
                  keyfile: Optional[str] = None):
         """
         Инициализирует JSON-RPC сервер.
@@ -301,7 +309,8 @@ class JrpcServer:
         self.certfile = certfile
         self.keyfile = keyfile
 
-    def call_method(self, method: str, params: Optional[Union[Dict[str, Any], List[Any]]] = None, call_id: int = 1) -> Dict[str, Any]:
+    def call_method(self, method: str, params: Optional[Union[Dict[str, Any],
+    List[Any]]] = None, call_id: int = 1) -> Dict[str, Any]:
         """
         Выполняет JSON-RPC вызов на сервере.
 
@@ -322,6 +331,5 @@ class JrpcServer:
 
 http_transport = HttpTransport()
 websocket_transport = WebSocketTransport()
-
 
 __all__ = ['JrpcServer', 'http_transport', 'websocket_transport']
